@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Altar of Moss, Teeth & Forgotten Songs</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'MS Gothic', 'MS UI Gothic', monospace;
+            background-color: #1a3a2e;
+            background-image: 
+                repeating-linear-gradient(
+                    45deg,
+                    #1a3a2e 0px,
+                    #1a3a2e 2px,
+                    #2d5940 2px,
+                    #2d5940 4px
+                );
+            color: #e8f4e6;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        /* Animated background dots */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 10% 20%, #2d5940 1px, transparent 1px),
+                radial-gradient(circle at 80% 80%, #3e7b52 1px, transparent 1px),
+                radial-gradient(circle at 40% 40%, #2d5940 1px, transparent 1px);
+            background-size: 50px 50px, 80px 80px, 30px 30px;
+            animation: drift 30s linear infinite;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        @keyframes drift {
+            0% { background-position: 0 0, 0 0, 0 0; }
+            100% { background-position: 50px 50px, 80px 80px, 30px 30px; }
+        }
+
+        /* Floating ASCII particles */
+        .teeth-particle {
+            position: fixed;
+            color: #f5f5dc;
+            font-size: 10px;
+            opacity: 0.7;
+            animation: float 20s linear infinite;
+            z-index: 1;
+            pointer-events: none;
+            font-family: 'MS Gothic', monospace;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { transform: translateY(-100px); opacity: 0; }
+        }
+
+        /* Main container */
+        .container {
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background-color: #2d5940;
+            border-bottom: 3px solid #81c784;
+            padding: 15px;
+        }
+
+        nav {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 16px;
+            font-weight: bold;
+            color: #e8f4e6;
+            margin-bottom: 10px;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            list-style: none;
+            text-align: center;
+        }
+
+        .nav-links li {
+            display: inline-block;
+            margin: 0 5px;
+        }
+
+        .nav-links a {
+            color: #e8f4e6;
+            text-decoration: none;
+            padding: 5px 10px;
+            border: 1px solid #81c784;
+            background-color: #1a3a2e;
+            display: inline-block;
+            margin: 2px;
+        }
+
+        .nav-links a:hover {
+            background-color: #81c784;
+            color: #1a3a2e;
+        }
+
+        /* Main content area */
+        .main-content {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 0 10px;
+        }
+
+        .content-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .content-table td {
+            vertical-align: top;
+            padding: 10px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 200px;
+            background-color: #2d5940;
+            border: 2px solid #81c784;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .sidebar h3 {
+            margin-bottom: 15px;
+            color: #81c784;
+            font-size: 14px;
+            text-align: center;
+            text-decoration: underline;
+        }
+
+        .sidebar ul {
+            list-style: none;
+        }
+
+        .sidebar li {
+            margin-bottom: 8px;
+            font-size: 11px;
+            line-height: 1.3;
+        }
+
+        .sidebar li::before {
+            content: '* ';
+            color: #66bb6a;
+        }
+
+        /* Content area */
+        .content {
+            background-color: #2d5940;
+            border: 2px solid #81c784;
+            padding: 20px;
+        }
+
+        /* Animated title */
+        .animated-text {
+            font-size: 18px;
+            text-align: center;
+            margin: 20px 0;
+            color: #81c784;
+            animation: blink 2s ease-in-out infinite alternate;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        @keyframes blink {
+            0% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        /* Scrolling marquee */
+        .scrolling-text {
+            background-color: #1a3a2e;
+            border: 1px solid #81c784;
+            padding: 5px;
+            margin: 15px 0;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .scrolling-text span {
+            display: inline-block;
+            animation: scroll 15s linear infinite;
+            color: #81c784;
+            font-size: 11px;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* Tabbed content */
+        .tabs {
+            margin-bottom: 20px;
+        }
+
+        .tab-buttons {
+            margin-bottom: 10px;
+        }
+
+        .tab-button {
+            background-color: #1a3a2e;
+            border: 1px solid #81c784;
+            color: #e8f4e6;
+            cursor: pointer;
+            padding: 8px 15px;
+            margin-right: 3px;
+            font-family: 'MS Gothic', monospace;
+            font-size: 11px;
+        }
+
+        .tab-button:hover {
+            background-color: #3e7b52;
+        }
+
+        .tab-button.active {
+            background-color: #81c784;
+            color: #1a3a2e;
+            font-weight: bold;
+        }
+
+        .tab-content {
+            background-color: #1a3a2e;
+            border: 2px solid #81c784;
+            padding: 20px;
+            display: none;
+            min-height: 300px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .tab-content h2 {
+            color: #81c784;
+            margin-bottom: 15px;
+            font-size: 16px;
+            text-decoration: underline;
+        }
+
+        .tab-content p {
+            line-height: 1.5;
+            margin-bottom: 15px;
+            font-size: 12px;
+        }
+
+        /* Scroll box */
+        .scroll-box {
+            background-color: #2d5940;
+            border: 1px solid #81c784;
+            padding: 15px;
+            height: 150px;
+            overflow-y: scroll;
+            margin: 15px 0;
+            font-size: 11px;
+        }
+
+        .scroll-box::-webkit-scrollbar {
+            width: 16px;
+        }
+
+        .scroll-box::-webkit-scrollbar-track {
+            background-color: #1a3a2e;
+        }
+
+        .scroll-box::-webkit-scrollbar-thumb {
+            background-color: #81c784;
+            border: 1px solid #2d5940;
+        }
+
+        /* Gallery grid */
+        .gallery {
+            display: table;
+            width: 100%;
+            margin: 15px 0;
+        }
+
+        .gallery-row {
+            display: table-row;
+        }
+
+        .gallery-item {
+            display: table-cell;
+            background-color: #2d5940;
+            border: 1px solid #81c784;
+            width: 80px;
+            height: 80px;
+            text-align: center;
+            vertical-align: middle;
+            cursor: pointer;
+            margin: 2px;
+        }
+
+        .gallery-item:hover {
+            background-color: #3e7b52;
+        }
+
+        /* Collapsible content */
+        .collapsible {
+            margin: 15px 0;
+        }
+
+        .collapsible-header {
+            background-color: #2d5940;
+            border: 1px solid #81c784;
+            padding: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .collapsible-header:hover {
+            background-color: #3e7b52;
+        }
+
+        .collapsible-content {
+            display: none;
+            background-color: #1a3a2e;
+            border: 1px solid #81c784;
+            border-top: none;
+            padding: 15px;
+            font-size: 11px;
+            line-height: 1.4;
+        }
+
+        .collapsible-content.open {
+            display: block;
+        }
+
+        /* Buttons */
+        .btn {
+            background-color: #2d5940;
+            border: 2px outset #81c784;
+            color: #e8f4e6;
+            padding: 8px 15px;
+            cursor: pointer;
+            margin: 5px;
+            font-family: 'MS Gothic', monospace;
+            font-size: 11px;
+        }
+
+        .btn:hover {
+            background-color: #3e7b52;
+        }
+
+        .btn:active {
+            border: 2px inset #81c784;
+        }
+
+        /* Popup */
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #2d5940;
+            border: 3px solid #81c784;
+            padding: 20px;
+            z-index: 1000;
+            display: none;
+            max-width: 400px;
+            font-size: 12px;
+        }
+
+        .popup.show {
+            display: block;
+        }
+
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 999;
+            display: none;
+        }
+
+        .popup-overlay.show {
+            display: block;
+        }
+
+        .popup h3 {
+            color: #81c784;
+            margin-bottom: 10px;
+            font-size: 14px;
+            text-decoration: underline;
+        }
+
+        .popup textarea {
+            width: 100%;
+            height: 60px;
+            background-color: #1a3a2e;
+            border: 1px solid #81c784;
+            color: #e8f4e6;
+            padding: 5px;
+            font-family: 'MS Gothic', monospace;
+            font-size: 11px;
+            margin-top: 10px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #2d5940;
+            border-top: 3px solid #81c784;
+            padding: 20px;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .footer-content {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .footer-section {
+            display: inline-block;
+            vertical-align: top;
+            width: 300px;
+            margin: 10px;
+            text-align: left;
+        }
+
+        .footer-section h4 {
+            color: #81c784;
+            margin-bottom: 10px;
+            font-size: 13px;
+            text-decoration: underline;
+        }
+
+        .footer-section p {
+            font-size: 11px;
+            line-height: 1.4;
+        }
+
+        /* Info boxes */
+        .info-box {
+            background-color: #1a3a2e;
+            border: 1px solid #81c784;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 11px;
+        }
+
+        .info-box h4 {
+            color: #81c784;
+            margin-bottom: 8px;
+            font-size: 12px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .content-table {
+                display: block;
+            }
+            
+            .content-table td {
+                display: block;
+                width: 100%;
+            }
+            
+            .sidebar {
+                width: 100%;
+                margin-bottom: 15px;
+            }
+            
+            .nav-links li {
+                display: block;
+                margin: 5px 0;
+            }
+            
+            .footer-section {
+                display: block;
+                width: 100%;
+                margin: 15px 0;
+            }
+            
+            .gallery-item {
+                width: 60px;
+                height: 60px;
+            }
+        }
+
+        /* Retro form elements */
+        input, textarea, select {
+            background-color: #1a3a2e;
+            border: 1px inset #81c784;
+            color: #e8f4e6;
+            font-family: 'MS Gothic', monospace;
+            font-size: 11px;
+            padding: 3px;
+        }
+
+        /* Link styling */
+        a {
+            color: #81c784;
+            text-decoration: underline;
+        }
+
+        a:visited {
+            color: #66bb6a;
+        }
+
+        a:hover {
+            color: #e8f4e6;
+            background-color: #81c784;
+        }
+
+        /* Table styling for content layout */
+        .content-grid {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 15px 0;
+        }
+
+        .content-grid td {
+            border: 1px solid #81c784;
+            padding: 10px;
+            background-color: #2d5940;
+            font-size: 11px;
+            text-align: center;
+        }
+
+        .content-grid td:hover {
+            background-color: #3e7b52;
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating ASCII particles -->
+    <div class="teeth-particle" style="left: 10%; animation-delay: 0s;">.</div>
+    <div class="teeth-particle" style="left: 20%; animation-delay: 3s;">*</div>
+    <div class="teeth-particle" style="left: 30%; animation-delay: 6s;">.</div>
+    <div class="teeth-particle" style="left: 40%; animation-delay: 9s;">o</div>
+    <div class="teeth-particle" style="left: 50%; animation-delay: 12s;">.</div>
+    <div class="teeth-particle" style="left: 60%; animation-delay: 15s;">*</div>
+    <div class="teeth-particle" style="left: 70%; animation-delay: 18s;">.</div>
+    <div class="teeth-particle" style="left: 80%; animation-delay: 21s;">o</div>
+    <div class="teeth-particle" style="left: 90%; animation-delay: 24s;">.</div>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <nav>
+                <div class="logo">*** VERDANT OSSUARY ***</div>
+                <ul class="nav-links">
+                    <li><a href="#home">SANCTUARY</a></li>
+                    <li><a href="#relics">RELICS</a></li>
+                    <li><a href="#whispers">WHISPERS</a></li>
+                    <li><a href="#growth">GROWTH</a></li>
+                    <li><a href="#contact">COMMUNE</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <table class="content-table">
+                <tr>
+                    <!-- Left Sidebar -->
+                    <td>
+                        <div class="sidebar">
+                            <h3>SACRED FRAGMENTS</h3>
+                            <ul>
+                                <li>ossified dreams crystallizing in morning dew</li>
+                                <li>spores of forgotten laughter taking root</li>
+                                <li>calcium deposits of unspoken promises</li>
+                                <li>mycorrhizal networks of lost connections</li>
+                                <li>enamel memories weathering into soil</li>
+                                <li>chlorophyll prayers ascending through bark</li>
+                                <li>decomposing melodies nurturing new growth</li>
+                            </ul>
+
+                            <div class="scroll-box">
+                                <strong style="color: #81c784;">RECENT RECLAMATIONS:</strong><br><br>
+                                the cathedral of forgotten names has welcomed three new moss gardens this season...<br><br>
+                                ancient wisdom teeth discovered beneath the singing stones, each carrying traces of unremembered songs...<br><br>
+                                the bone chapel expands as tender green shoots emerge from calcium seams...<br><br>
+                                root systems now thread through the hollows where voices once echoed...
+                            </div>
+                        </div>
+                    </td>
+                    
+                    <!-- Content Area -->
+                    <td>
+                        <div class="content">
+                            <div class="animated-text">&gt;&gt;&gt; WHERE MEMORY BECOMES MOSS &lt;&lt;&lt;</div>
+
+                            <div class="scrolling-text">
+                                <span>*** ancient songs crystallize into bone *** verdant growth claims forgotten spaces *** teeth scatter like seeds in fertile darkness *** memory transforms through patient decay ***</span>
+                            </div>
+
+                            <!-- Tabbed Content -->
+                            <div class="tabs">
+                                <div class="tab-buttons">
+                                    <button class="tab-button active" onclick="showTab('ossuary')">THE OSSUARY</button>
+                                    <button class="tab-button" onclick="showTab('garden')">MOSS GARDEN</button>
+                                    <button class="tab-button" onclick="showTab('songs')">FORGOTTEN SONGS</button>
+                                    <button class="tab-button" onclick="showTab('communion')">COMMUNION</button>
+                                </div>
+
+                                <div id="ossuary" class="tab-content active">
+                                    <h2>THE SACRED OSSUARY</h2>
+                                    <p>here, in this liminal space where calcium meets chlorophyll, we tend the altar of transformation. each tooth that falls becomes a vessel for new life, each forgotten melody a pathway for spores to travel. the ossuary breathes with the rhythm of decay and renewal, where what was once spoken now nurtures what will grow.</p>
+                                    
+                                    <table class="content-grid">
+                                        <tr>
+                                            <td onclick="showPopup('gallery1')" class="gallery-item">TRI<br>GRM<br>1</td>
+                                            <td onclick="showPopup('gallery2')" class="gallery-item">TRI<br>GRM<br>2</td>
+                                            <td onclick="showPopup('gallery3')" class="gallery-item">TRI<br>GRM<br>3</td>
+                                            <td onclick="showPopup('gallery4')" class="gallery-item">TRI<br>GRM<br>4</td>
+                                        </tr>
+                                    </table>
+
+                                    <button class="btn" onclick="showPopup('offerings')">LEAVE OFFERING</button>
+                                    <button class="btn" onclick="showPopup('meditate')">ENTER MEDITATION</button>
+                                </div>
+
+                                <div id="garden" class="tab-content">
+                                    <h2>THE MOSS GARDEN</h2>
+                                    <p>in the spaces between teeth, moss has found purchase. bryophyta congregations form where incisors once bit into promises, where molars ground hopes into digestible fragments. the garden grows not in soil but in the hollow spaces of what we've lost, creating new ecosystems from ancient foundations.</p>
+                                    
+                                    <div class="collapsible">
+                                        <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                                            SPECIES CATALOG [+]
+                                        </div>
+                                        <div class="collapsible-content">
+                                            <strong>Bryum argenteum</strong> - silver moss that grows on calcium deposits of unspoken truths<br><br>
+                                            <strong>Grimmia torquata</strong> - twisted moss that spirals around root canals of forgotten names<br><br>
+                                            <strong>Racomitrium canescens</strong> - grey moss that cushions the spaces between wisdom and understanding<br><br>
+                                            <strong>Hylocomium splendens</strong> - stair-step moss climbing the hierarchy of decomposed symphonies
+                                        </div>
+                                    </div>
+
+                                    <button class="btn" onclick="showPopup('cultivation')">BEGIN CULTIVATION</button>
+                                </div>
+
+                                <div id="songs" class="tab-content">
+                                    <h2>FORGOTTEN SONGS</h2>
+                                    <p>these are the melodies that crystallized in moments of silence, the lullabies that calcified when lips forgot their purpose. each song becomes sediment, layering into geological memories that root systems now navigate. they hum beneath the surface, felt rather than heard.</p>
+                                    
+                                    <div class="scroll-box">
+                                        <em>"in the hollow where your voice once lived..."</em><br>
+                                        <em>"beneath the roots, a chorus sleeps..."</em><br>
+                                        <em>"teeth like keys to doors unopened..."</em><br>
+                                        <em>"moss writes symphonies in silence..."</em><br>
+                                        <em>"what decomposed becomes composition..."</em><br>
+                                        <em>"calcium chambers echo green..."</em><br>
+                                        <em>"where words fell, spores now rise..."</em>
+                                    </div>
+
+                                    <div class="collapsible">
+                                        <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                                            RESONANCE ARCHIVES [+]
+                                        </div>
+                                        <div class="collapsible-content">
+                                            each forgotten song leaves specific mineral traces in the enamel. through careful cultivation, these traces become the foundation for new acoustic ecosystems. the moss responds to these subliminal frequencies, growing in patterns that mirror the lost melodies.
+                                        </div>
+                                    </div>
+
+                                    <button class="btn" onclick="showPopup('listening')">ENTER DEEP LISTENING</button>
+                                </div>
+
+                                <div id="communion" class="tab-content">
+                                    <h2>SACRED COMMUNION</h2>
+                                    <p>this is where pilgrims gather to witness the slow alchemy of transformation. to participate in the communion between what was human and what becomes verdant. here, in the presence of the altar, we learn the patience of moss, the persistence of roots finding their way through bone.</p>
+                                    
+                                    <table style="width: 100%; margin: 15px 0;">
+                                        <tr>
+                                            <td style="background-color: #1a3a2e; border: 1px solid #81c784; padding: 10px; text-align: center;">
+                                                <strong style="color: #81c784;">DAWN VIGILS</strong><br>
+                                                first light illuminating the calcified prayers
+                                            </td>
+                                            <td style="background-color: #1a3a2e; border: 1px solid #81c784; padding: 10px; text-align: center;">
+                                                <strong style="color: #81c784;">TWILIGHT OFFERINGS</strong><br>
+                                                evening communion with the growing shadows
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                    <button class="btn" onclick="showPopup('join')">JOIN GATHERING</button>
+                                    <button class="btn" onclick="showPopup('testimony')">SHARE TESTIMONY</button>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+
+                    <!-- Right Sidebar -->
+                    <td>
+                        <div class="sidebar">
+                            <h3>SEASONAL OBSERVANCES</h3>
+                            <ul>
+                                <li>spring: the sprouting of silenced words</li>
+                                <li>summer: peak growth in bone cavities</li>
+                                <li>autumn: harvest of crystallized memories</li>
+                                <li>winter: rest period of deep root systems</li>
+                                <li>lunar phases: calcium tides and spore release</li>
+                                <li>solstices: alignment of growth patterns</li>
+                                <li>equinoxes: balance between decay and renewal</li>
+                            </ul>
+
+                            <div class="info-box">
+                                <h4>CURRENT PHASE:</h4>
+                                the moss whispers of summer's approach, spores dancing in amber light...
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>TENDING PRACTICES</h4>
+                    <p>learn the ancient arts of moss cultivation and bone gardening. understand the sacred relationship between calcium and chlorophyll.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>PILGRIMAGE ROUTES</h4>
+                    <p>discover pathways through the ossuary gardens. maps of root systems and their connection to forgotten melodies.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>SACRED TEXTS</h4>
+                    <p>archives of transformation. journals of moss growth. catalogs of songs that have crystallized into mineral form.</p>
+                </div>
+            </div>
+            <hr style="border: 1px solid #81c784; margin: 20px 0;">
+            <p style="font-style: italic; font-size: 11px;">"in every tooth that falls, a garden waits to grow"</p>
+        </footer>
+    </div>
+
+    <!-- Popup Overlay -->
+    <div class="popup-overlay" onclick="closePopup()"></div>
+    <div class="popup" id="popup">
+        <div id="popup-content">
+            <!-- Dynamic content will be inserted here -->
+        </div>
+        <button class="btn" onclick="closePopup()" style="margin-top: 15px;">CLOSE</button>
+    </div>
+
+    <script>
+        // Tab functionality
+        function showTab(tabName) {
+            // Hide all tab contents
+            var contents = document.querySelectorAll('.tab-content');
+            for (var i = 0; i < contents.length; i++) {
+                contents[i].classList.remove('active');
+            }
+            
+            // Remove active class from all buttons
+            var buttons = document.querySelectorAll('.tab-button');
+            for (var i = 0; i < buttons.length; i++) {
+                buttons[i].classList.remove('active');
+            }
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+        }
+
+        // Collapsible functionality
+        function toggleCollapsible(header) {
+            var content = header.nextElementSibling;
+            var isOpen = content.classList.contains('open');
+            
+            content.classList.toggle('open');
+            header.innerHTML = header.innerHTML.replace(isOpen ? '[-]' : '[+]', isOpen ? '[+]' : '[-]');
+        }
+
+        // Popup functionality
+        function showPopup(type) {
+            var popup = document.getElementById('popup');
+            var overlay = document.querySelector('.popup-overlay');
+            var content = document.getElementById('popup-content');
+            
+            var popupContent = '';
+            
+            switch(type) {
+                case 'gallery1':
+                    popupContent = '<h3>TRIGRAM OF EARTH</h3><p>where roots penetrate the deepest calcium deposits, creating networks of ancient wisdom.</p>';
+                    break;
+                case 'gallery2':
+                    popupContent = '<h3>TRIGRAM OF LAKE</h3><p>pools of accumulated memory where spores gather before taking flight.</p>';
+                    break;
+                case 'gallery3':
+                    popupContent = '<h3>TRIGRAM OF WIND</h3><p>currents that carry the dispersed fragments of forgotten songs to new soil.</p>';
+                    break;
+                case 'gallery4':
+                    popupContent = '<h3>TRIGRAM OF MOUNTAIN</h3><p>the stillness where moss learns the patience of stone and bone.</p>';
+                    break;
+                case 'offerings':
+                    popupContent = '<h3>LEAVE AN OFFERING</h3><p>place your forgotten words here. let them join the sediment of memories that nourish new growth. what song do you surrender to the moss?</p><textarea placeholder="your offering..."></textarea>';
+                    break;
+                case 'meditate':
+                    popupContent = '<h3>ENTER MEDITATION</h3><p>close your eyes. feel the slow pulse of growth beneath your feet. hear the whisper of spores finding their way through calcium corridors. let your breath sync with the rhythm of decomposition and renewal.</p>';
+                    break;
+                case 'cultivation':
+                    popupContent = '<h3>BEGIN CULTIVATION</h3><p>select a forgotten memory. plant it gently in the spaces between understanding. water it with patience. watch as green tendrils emerge from what you thought was lost forever.</p>';
+                    break;
+                case 'listening':
+                    popupContent = '<h3>ENTER DEEP LISTENING</h3><p>the songs are still here, embedded in mineral traces. place your ear to the moss-covered surfaces. feel the vibrations of melodies that crystallized in moments of silence.</p>';
+                    break;
+                case 'join':
+                    popupContent = '<h3>JOIN THE GATHERING</h3><p>every dawn and dusk, we gather at the altar. bringing our offerings of forgotten words, witnessing the slow alchemy of transformation. you are welcome here.</p>';
+                    break;
+                case 'testimony':
+                    popupContent = '<h3>SHARE TESTIMONY</h3><p>tell us of your transformation. what have you released to the moss? what new growth have you witnessed? how has the altar changed you?</p>';
+                    break;
+            }
+            
+            content.innerHTML = popupContent;
+            overlay.classList.add('show');
+            popup.classList.add('show');
+        }
+
+        function closePopup() {
+            var popup = document.getElementById('popup');
+            var overlay = document.querySelector('.popup-overlay');
+            
+            overlay.classList.remove('show');
+            popup.classList.remove('show');
+        }
+
+        // Add more floating particles
+        function createFloatingParticles() {
+            var particles = ['.', '*', 'o', '+', '~', '^'];
+            
+            setInterval(function() {
+                var existingParticles = document.querySelectorAll('.teeth-particle').length;
+                if (existingParticles < 20) {
+                    var particle = document.createElement('div');
+                    particle.className = 'teeth-particle';
+                    particle.textContent = particles[Math.floor(Math.random() * particles.length)];
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.animationDelay = '0s';
+                    particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+                    
+                    document.body.appendChild(particle);
+                    
+                    setTimeout(function() {
+                        if (particle.parentNode) {
+                            particle.parentNode.removeChild(particle);
+                        }
+                    }, 25000);
+                }
+            }, 4000);
+        }
+
+        // Initialize
+        window.onload = function() {
+            createFloatingParticles();
+        };
+
+        // Simple hover effects for navigation
+        var navLinks = document.querySelectorAll('.nav-links a');
+        for (var i = 0; i < navLinks.length; i++) {
+            navLinks[i].addEventListener('click', function(e) {
+                e.preventDefault();
+                // Visual feedback
+                this.style.transform = 'scale(0.95)';
+                var link = this;
+                setTimeout(function() {
+                    link.style.transform = 'scale(1)';
+                }, 100);
+            });
+        }
+    </script>
+</body>
+</html>
